@@ -1,7 +1,6 @@
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
-import java.util.InputMismatchException;
 
 // Book class to represent a book object
 class Book {
@@ -53,6 +52,12 @@ class Library {
         books = new ArrayList<>(); // Initialize the book list
     }
 
+    public void addBook(Book book) {
+        books.add(book); // Add book to the collection
+        System.out.println("Book Added Successfully...");
+    }
+
+   
 }
 
 public class LMS {
@@ -88,24 +93,6 @@ public class LMS {
 
                     Book book = new Book(isbn, title, author, pub_year);
                     library.addBook(book);
-                    break;
-
-                case 2:
-                    // Borrowing a book
-                    System.out.println("Enter ISBN Number to Borrow Book");
-                    isbn = scanner.nextLine();
-                    library.borrowBook(isbn);
-                    break;
-
-                case 3:
-                    // Returning a book
-                    System.out.println("Enter ISBN Number To Return Book");
-                    isbn = scanner.nextLine();
-                    library.returnBook(isbn);
-                    break;
-
-                case 4:
-                    library.availableBooks(); // Show available books
                     break;
 
                 case 5:
