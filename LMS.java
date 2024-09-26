@@ -1,6 +1,7 @@
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+import java.util.InputMismatchException;
 
 // Book class to represent a book object
 class Book {
@@ -57,7 +58,47 @@ class Library {
         System.out.println("Book Added Successfully...");
     }
 
-   
+    public void borrowBook(String isbn) {
+        Book book = findBook(isbn); // Locate the book by its ISBN
+
+        if (book == null || !book.isAvailable()) {
+            System.out.println("Book Not Available for Borrow in Library");
+        } else {
+            book.setAvailable(false); // Mark book as not available
+            System.out.println("Book Borrowed Successfully from the Library");
+        }
+    }
+
+    public void returnBook(String isbn) {
+        Book book = findBook(isbn); // Locate the book by its ISBN
+
+        if (book == null) {
+            System.out.println("Book Not Found Successfully");
+        } else {
+            book.setAvailable(true); // Mark book as available
+            System.out.println("Book Returned Successfully");
+        }
+    }
+
+    public void availableBooks() {
+        System.out.println("Available Books are :");
+
+        for (Book book : books) {
+            if (book.isAvailable()) {
+                // Display details of available books
+                System.out.println("The " + book.getTitle() + " by " + book.getAuthor() + " {ISBN : " + book.getIsbn() + "}");
+            }
+        }
+    }
+
+    private Book findBook(String isbn) {
+        for (Book book : books) {
+            if (book.getIsbn().equals(isbn)) {
+                return book; // Return the found book
+            }
+        }
+        return null; // Return null if not found
+    }
 }
 
 public class LMS {
@@ -93,6 +134,24 @@ public class LMS {
 
                     Book book = new Book(isbn, title, author, pub_year);
                     library.addBook(book);
+                    break;
+
+                case 2:
+                    // Borrowing a book
+                    System.out.println("Enter ISBN Number to Borrow Book");
+                    isbn = scanner.nextLine();
+                    library.borrowBook(isbn);
+                    break;
+
+                case 3:
+                    // Returning a book
+                    System.out.println("Enter ISBN Number To Return Book");
+                    isbn = scanner.nextLine();
+                    library.returnBook(isbn);
+                    break;
+
+                case 4:
+                    library.availableBooks(); // Show available books
                     break;
 
                 case 5:
